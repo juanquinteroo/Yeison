@@ -1,0 +1,270 @@
+/* src/components/Navbar/Navbar.css */
+
+.navbar {
+    background-color: #F8F9FA;
+    /* Un color de fondo claro */
+    padding: 1rem 7rem 1rem 2rem;
+    /* Espaciado alrededor de la navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 2rem;
+    color: #0058ac;
+    /* Un color azul para el logo */
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    transition: max-height 0.3s ease-out;
+    /* Si quieres una transición suave */
+}
+.nav-item {
+    color: white; /* Color de texto inicial */
+    padding: 0.7em calc(0.7em * 1.2); /* Padding para el texto */
+    display: inline-block; /* Para mantener el elemento en línea y permitir transformaciones */
+    border: 3px solid transparent; /* Borde inicial transparente */
+    position: relative; /* Posicionamiento relativo para los pseudo-elementos */
+    font-size: 1.2em; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de mano al pasar sobre el elemento */
+    letter-spacing: 0.07em; /* Espaciado de letras */
+  
+    /* Pseudo-elemento para el efecto de fondo */
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: calc(0.7em * 1.2);
+      right: calc(0.7em * 1.2);
+      height: 3px;
+      background: #0058ac; /* Color de fondo para el efecto */
+      transition: all 0.4s cubic-bezier(1,0,.37,1) 0.2s, right 0.2s, left 0.4s;
+      transform-origin: left;
+    }
+  
+    /* Efecto al pasar el ratón por encima */
+    &:hover, &:focus {
+      color: #003870; /* Cambio de color de texto en hover */
+  
+      &:after {
+        right: -3px;
+        left: -3px;
+        transform: scale3d(0,1,1);
+      }
+    }
+  }
+  
+.nav-item {
+    margin: 0 0.5rem;
+    /* Espaciado entre los elementos de navegación */
+    text-decoration: none;
+    color: #003870;
+    /* Color azul para los enlaces */
+    font-weight: 500;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    background-color: #0058ac;
+    /* Color de fondo original */
+    border: 2px solid #4741d7;
+    /* Agregado para el efecto de deslizamiento */
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    /* Para el posicionamiento absoluto del pseudo-elemento ::after */
+    z-index: 1;
+    overflow: hidden;
+    /* Para el efecto de deslizamiento */
+    transition: color 0.35s;
+    /* Transición suave para el cambio de color */
+    display: inline-block;
+    /* Para permitir el overflow hidden */
+    font-size: 1.2rem;
+}
+
+/* Estilos para el hover que cambian el color de fondo y el color de la fuente */
+.nav-button:hover {
+    background-color: #0058ac;
+    /* Color de fondo para el hover */
+    color: #fff;
+    /* Color de fuente para el hover */
+}
+
+/* Pseudo-elemento para el efecto de deslizamiento */
+.nav-button::after {
+    content: "";
+    background: #003870;
+    /* Color de fondo para el efecto de deslizamiento */
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    /* Comienza fuera del botón */
+    right: 100%;
+    /* Comienza fuera del botón */
+    transition: all 0.35s;
+    /* Transición para el efecto de deslizamiento */
+}
+
+/* Cambia la posición del pseudo-elemento al hacer hover */
+.nav-button:hover::after {
+    left: 0;
+    right: 0;
+}
+
+
+
+/* Estilos específicos para el menú desplegable móvil */
+.navbar-links-mobile {
+    display: none;
+    /* Oculto por defecto */
+}
+
+.menu-icon {
+    display: flex;
+    /* Utiliza flexbox para alinear ícono y texto */
+    align-items: center;
+    /* Alinea verticalmente */
+    justify-content: flex-end;
+    /* Alinea horizontalmente al final del contenedor */
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    /* Posición a la derecha */
+    top: 1.5rem;
+    /* Ajusta si es necesario según el diseño */
+}
+
+.menu-icon span {
+    margin-left: 0.5rem;
+    /* Espacio entre el ícono y el texto */
+    display: none;
+    /* Oculta el texto por defecto */
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+        /* Se muestra el menú de hamburguesa */
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        z-index: 1000;
+        /* Asegúrate de que el ícono esté sobre otros elementos */
+    }
+
+    .navbar-links {
+        display: none;
+        /* Oculta los elementos que siempre están visibles */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: var(--navbar-height);
+        /* Ajusta esta variable al tamaño de tu navbar */
+        left: 0;
+        z-index: 999;
+        /* Asegúrate de que el menú esté sobre otros elementos, pero debajo del ícono de cierre */
+    }
+
+    .navbar-links-mobile {
+        display: none;
+        /* Esta clase se encargará de los elementos del menú de hamburguesa */
+    }
+
+    .navbar-links.active,
+    .navbar-links-mobile.active {
+        display: flex;
+        /* Muestra los enlaces cuando el menú está activo */
+        flex-direction: column;
+        background-color: #0058ac;
+        /* El color de fondo para el menú desplegable */
+    }
+
+    .nav-item,
+    .nav-item-mobile {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        text-align: left;
+        color: white;
+        /* Cambia el color del texto para mejor contraste */
+        border-bottom: 1px solid #340f8a;
+        /* Borde entre los elementos */
+    }
+
+    .nav-item:last-child,
+    .nav-item-mobile:last-child {
+        border-bottom: none;
+    }
+}
+
+.navbar-links-expanded {
+    display: flex;
+    flex-direction: column;
+    background-color: #0058ac;
+    /* Tu color de fondo deseado */
+    position: absolute;
+    top: 60px;
+    /* Asegúrate de ajustar esto según la altura de tu navbar */
+    width: 100%;
+    z-index: 10;
+}
+
+.nav-item-expanded {
+    color: white;
+    padding: 15px 20px;
+    border-bottom: 1px solid #340f8a;
+    /* Borde para separar los enlaces */
+    text-align: left;
+}
+
+.nav-item-expanded:last-child {
+    border-bottom: none;
+}
+
+.navbar-links-expanded {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Alinea los elementos a la izquierda */
+    background-color: #0058ac;
+    /* Tu color de fondo deseado */
+    position: absolute;
+    top: 60px;
+    /* Ajusta según la altura de tu navbar */
+    width: 100%;
+    z-index: 10;
+}
+
+.nav-item-expanded {
+    display: block;
+    /* Asegúrate de que los elementos se muestren en bloque */
+    width: 100%;
+    /* Toma todo el ancho disponible */
+    padding: 1rem;
+    /* Espaciado adecuado */
+    text-align: left;
+    /* Alinea el texto a la izquierda */
+    color: white;
+    /* Color del texto */
+    border-bottom: 1px solid #340f8a;
+    /* Borde para separar los enlaces */
+}
+
+.nav-item-expanded:last-child {
+    border-bottom: none;
+}
