@@ -1,4 +1,7 @@
+//SingInPage.js
+
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -407,6 +410,11 @@ export default function SignInSignUpPage({ mode }) {
                 >
                   Ingresar
                 </Button>
+                <Typography variant="body2" style={{ textAlign: "center", marginTop: "8px" }}>
+                  <Link to="/recover-password" style={{ textDecoration: 'none' }}>
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </Typography>
               </Box>
             )}
           </form>
